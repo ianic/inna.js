@@ -1,0 +1,4 @@
+app = {
+	models : {},
+	controllers : {}
+}
