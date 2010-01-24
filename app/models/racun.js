@@ -18,12 +18,14 @@ app.models.Racun = function(){
   this.createStavka = function(stavka){	 
 		stavka = stavka || {}
     app.models.Stavka.call(stavka, this);         
-    this.stavke.push(stavka);
+    this.stavke.push(stavka);  
+		inna.notificationCenter.pushNotification(this, 'stavkaAdded', stavka);
     return stavka;
   }      
   
   this.removeStavka = function(stavka){     
-    this.stavke = this.stavke.without(stavka);          
+    this.stavke = this.stavke.without(stavka);                            
+		inna.notificationCenter.pushNotification(this, 'stavkaRemoved', stavka);
     this.changed();
   }
                              
@@ -40,7 +42,7 @@ app.models.Racun = function(){
   }
 
   this.valuta = function(){
-    //TODO naprvi fukciju addDays na Date objektu
+    //TODO napravi funkciju addDays na Date objektu
     return new Date(this.datum.getTime() + this.rokPlacanja * 1000 * 60 * 60 * 24)
   } 
           
