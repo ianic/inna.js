@@ -1,0 +1,210 @@
+div.container {
+  background-color:#E6E6E6;
+  color:#000000;
+  font-family:"Lucida Grande",Lucida,Verdana,sans-serif;
+  font-size:12px;
+  height:100%;
+  line-height:18px;
+  margin:0;
+  padding:0;
+  width:100%;    
+
+  font-size-adjust:none;
+  font-style:normal;
+  font-variant:normal;
+  font-weight:normal;
+  line-height:normal;
+}          
+div.container{
+  margin-left:auto;
+  margin-right:auto; 
+  width:802px;
+}
+div.racun_ispis {
+  background:#FFFFFF none repeat scroll 0 bottom;
+  float:left;
+  padding:40px;    
+  width:620px;   
+  min-height:870px;  
+}  
+div.racun_ispis .head {
+  float:left;
+  margin-bottom:40px;
+  width:620px
+}           
+div.racun_ispis div.logo{
+  float:left;
+  width:250px;         
+}
+div.racun_ispis h1.logo{
+  color:#000000;
+  float:left;
+  font-size:22px;
+  font-weight:bold;
+  height:43px;
+  line-height:43px;
+  margin-bottom:0;
+  margin-top:0;
+  white-space:nowrap;
+  width:248px;       
+}
+div.racun_ispis div.detalji{
+  float:right;
+  width:320px;
+}   
+
+div.racun_ispis div.detalji div.left{
+  float:left;
+  font-weight:bold;
+  margin-right:10px;
+  text-align:right;
+  white-space:nowrap;
+  width:150px;                     
+} 
+
+div.racun_ispis div.detalji div.right {
+  float:left;
+  font-weight:bold;
+  white-space:nowrap;
+  width:160px; 
+  color:#222327; 
+}
+div.racun_ispis p {
+  margin:2px 0 0;
+}       
+div.racun_ispis div.adrese {
+  float:left;
+  margin-bottom:40px;
+  width:620px;
+}   
+div.racun_ispis div.adrese div.kupac{
+  float:left; 
+  width:310px;
+}  
+div.racun_ispis div.adrese div.prodavac{
+  float:right;
+  width:310px;
+}
+
+div.racun_ispis div.stavke{
+  float:left;
+  margin-bottom:20px;
+  width:620px;
+}  
+div.racun_ispis div.stavke ul{
+  margin: 0;
+  padding: 0;
+}                          
+div.racun_ispis div.stavke li{     
+  float:left;
+  list-style-type:none;
+  margin:0;
+  padding:0;
+}                                               
+div.racun_ispis div.stavke li.header{
+  border-bottom-style:solid;
+  border-bottom-width:1px;
+  border-top-style:solid;
+  border-top-width:1px;
+  float:left;
+  font-size:11px;
+  font-weight:bold;
+  padding-bottom:10px;
+  padding-top:10px;
+  width:620px;
+
+  background-color:#AAB1C4;
+  border-bottom-color:#A0A7B8;
+  border-top-color:#A0A7B8;
+}    
+div.racun_ispis div.stavke li.stavka {
+  border-bottom-style:solid;
+  border-bottom-width:1px;
+  font-size:11px;
+  padding-bottom:10px;
+  padding-top:10px;
+  width:620px;
+  border-bottom-color:#EEEFF3;
+}                            
+div.racun_ispis div.stavke li.stavka.alt {
+  background-color:#F6F7F9;
+}     
+div.racun_ispis div.stavke li span.opis {
+  float:left;
+  margin-left:20px;
+  margin-right:20px;
+  width:220px; 
+}  
+div.racun_ispis div.stavke li span.kolicina {
+   float:left;     
+   margin-right:20px;
+   width:120px; 
+ }       
+div.racun_ispis div.stavke li span.cijena {
+  float:left;
+  margin-right:20px; 
+  text-align:right;
+  width:80px; 
+}       
+div.racun_ispis div.stavke li span.iznos {
+  float:left;
+  margin-right:20px;
+  text-align:right;
+  width:100px; 
+}      
+div.racun_ispis div.total{  
+  float:right;
+  margin-top:30px;
+  padding-right:20px;
+  width:300px;   
+  color:#222327;                         
+}  
+div.racun_ispis div.total .left{
+  float:left;
+  font-weight:bold;
+  margin-right:20px;
+  text-align:right;
+  width:140px;
+}   
+div.racun_ispis div.total .right{
+  float:left;
+  font-weight:bold;
+  text-align:right;
+  width:140px;
+ }               
+ div.racun_ispis div.total p.ukupno {
+   font-size:14px;
+   font-weight:bold;
+   margin-bottom:10px;
+   margin-top:10px; 
+   color:#000000;
+ }                            
+ div.racun_ispis div.total p{
+   margin-bottom:6px;           
+ }    
+
+/*          
+   div.racun_ispis div.stavke li.header{
+    background-color:#F4D072;
+    border-bottom-color:#E9C66E;
+    border-top-color:#E9C66E;            
+   }   
+   div.racun_ispis div.stavke li.stavka.alt {
+     background-color:#FEFAF1;
+   }
+   div.racun_ispis div.stavke li.stavka {
+     border-bottom-color:#FDF6E3;
+   }  
+
+   div.racun_ispis div.stavke li.header{ 
+     background-color:#CEEBA0;
+     border-bottom-color:#C3E09A;
+     border-top-color:#C3E09A;
+   }
+   div.racun_ispis div.stavke li.stavka.alt {
+     background-color:#F7FCEF;
+   }
+   div.racun_ispis div.stavke li.stavka {
+     border-bottom-color:#EFF8DF;
+   }
+*/

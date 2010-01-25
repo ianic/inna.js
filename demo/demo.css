@@ -1,0 +1,45 @@
+#template_racun_edit{
+  font-family:arial,sans-serif;
+  font-size: 12px;
+}
+#template_racun_edit input{
+  font-size: 13px;
+  float: left;
+  width: 80px;
+}
+#template_racun_edit label{
+  float: left;
+  width: 100px;
+}
+#template_racun_edit div{
+  margin-top: 10px;
+  border: 1px dotted #ccc;
+  padding: 8px; 
+  clear: both;
+  float:left;
+} 
+#template_racun_edit div.datum{       
+   width: 190px;  
+ }
+#template_racun_edit div.partner{
+   width: 360px;                  
+ }
+#template_racun_edit div.partner input{
+  width: 250px;
+} 
+#template_racun_edit input.stavka_naziv{
+  width: 200px;
+}  
+#template_racun_edit div.stavke .iznos{
+  font-size: 14px;    
+  width: 80px;
+} 
+#template_racun_edit div.stavke .ukupno{
+  font-size: 14px;    
+  font-weight: bold;
+}  
+
+#template_racun_edit, #template_racun_preview{
+  float:left; 
+  padding: 20px;
+}

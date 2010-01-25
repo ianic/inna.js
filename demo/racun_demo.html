@@ -26,271 +26,10 @@
   <script src="../app/models/stavka.js"                   type="text/javascript"></script> 
   <script src="../app/models/partner.js"                  type="text/javascript"></script>    
   <script src="../app/controllers/racun.js"               type="text/javascript"></script>    
-  
-  <style type="text/css" media="screen">
-    #template_racun_edit{
-      font-family:arial,sans-serif;
-      font-size: 12px;
-    }
-    #template_racun_edit input{
-      font-size: 13px;
-      float: left;
-      width: 80px;
-    }
-    #template_racun_edit label{
-      float: left;
-      width: 100px;
-    }
-    #template_racun_edit div{
-      margin-top: 10px;
-      border: 1px dotted #ccc;
-      padding: 8px; 
-      clear: both;
-      float:left;
-    } 
-    #template_racun_edit div.datum{       
-       width: 190px;  
-     }
-     #template_racun_edit div.partner{
-        width: 360px;                  
-      }
-      #template_racun_edit div.partner input{
-        width: 250px;
-      } 
-      #template_racun_edit input.stavka_naziv{
-        width: 200px;
-      }  
-      #template_racun_edit div.stavke .iznos{
-        font-size: 14px;    
-        width: 80px;
-      } 
-      #template_racun_edit div.stavke .ukupno{
-        font-size: 14px;    
-        font-weight: bold;
-      }  
-      
-      #template_racun_edit, #template_racun_preview{
-        float:left; 
-        padding: 20px;
-      }
-    
-  </style> 
-  
-    <style>
-    div.container {
-      background-color:#E6E6E6;
-      color:#000000;
-      font-family:"Lucida Grande",Lucida,Verdana,sans-serif;
-      font-size:12px;
-      height:100%;
-      line-height:18px;
-      margin:0;
-      padding:0;
-      width:100%;    
 
-      font-size-adjust:none;
-      font-style:normal;
-      font-variant:normal;
-      font-weight:normal;
-      line-height:normal;
-    }          
-    div.container{
-      margin-left:auto;
-      margin-right:auto; 
-      width:802px;
-    }
-    div.racun_ispis {
-      background:#FFFFFF none repeat scroll 0 bottom;
-      float:left;
-      padding:40px;    
-      width:620px;   
-      min-height:870px;  
-    }  
-    div.racun_ispis .head {
-      float:left;
-      margin-bottom:40px;
-      width:620px
-    }           
-    div.racun_ispis div.logo{
-      float:left;
-      width:250px;         
-    }
-    div.racun_ispis h1.logo{
-      color:#000000;
-      float:left;
-      font-size:22px;
-      font-weight:bold;
-      height:43px;
-      line-height:43px;
-      margin-bottom:0;
-      margin-top:0;
-      white-space:nowrap;
-      width:248px;       
-    }
-    div.racun_ispis div.detalji{
-      float:right;
-      width:320px;
-    }   
+  <link rel="stylesheet" href="demo.css" type="text/css" media="screen" title="no title" charset="utf-8">
+  <link rel="stylesheet" href="preview.css" type="text/css" media="screen" title="no title" charset="utf-8">
 
-    div.racun_ispis div.detalji div.left{
-      float:left;
-      font-weight:bold;
-      margin-right:10px;
-      text-align:right;
-      white-space:nowrap;
-      width:150px;                     
-    } 
-
-    div.racun_ispis div.detalji div.right {
-      float:left;
-      font-weight:bold;
-      white-space:nowrap;
-      width:160px; 
-      color:#222327; 
-    }
-    div.racun_ispis p {
-      margin:2px 0 0;
-    }       
-    div.racun_ispis div.adrese {
-      float:left;
-      margin-bottom:40px;
-      width:620px;
-    }   
-    div.racun_ispis div.adrese div.kupac{
-      float:left; 
-      width:310px;
-    }  
-    div.racun_ispis div.adrese div.prodavac{
-      float:right;
-      width:310px;
-    }
-
-    div.racun_ispis div.stavke{
-      float:left;
-      margin-bottom:20px;
-      width:620px;
-    }  
-    div.racun_ispis div.stavke ul{
-      margin: 0;
-      padding: 0;
-    }                          
-    div.racun_ispis div.stavke li{     
-      float:left;
-      list-style-type:none;
-      margin:0;
-      padding:0;
-    }                                               
-    div.racun_ispis div.stavke li.header{
-      border-bottom-style:solid;
-      border-bottom-width:1px;
-      border-top-style:solid;
-      border-top-width:1px;
-      float:left;
-      font-size:11px;
-      font-weight:bold;
-      padding-bottom:10px;
-      padding-top:10px;
-      width:620px;
-
-      background-color:#AAB1C4;
-      border-bottom-color:#A0A7B8;
-      border-top-color:#A0A7B8;
-    }    
-    div.racun_ispis div.stavke li.stavka {
-      border-bottom-style:solid;
-      border-bottom-width:1px;
-      font-size:11px;
-      padding-bottom:10px;
-      padding-top:10px;
-      width:620px;
-      border-bottom-color:#EEEFF3;
-    }                            
-    div.racun_ispis div.stavke li.stavka.alt {
-      background-color:#F6F7F9;
-    }     
-    div.racun_ispis div.stavke li span.opis {
-      float:left;
-      margin-left:20px;
-      margin-right:20px;
-      width:220px; 
-    }  
-    div.racun_ispis div.stavke li span.kolicina {
-       float:left;     
-       margin-right:20px;
-       width:120px; 
-     }       
-    div.racun_ispis div.stavke li span.cijena {
-      float:left;
-      margin-right:20px; 
-      text-align:right;
-      width:80px; 
-    }       
-    div.racun_ispis div.stavke li span.iznos {
-      float:left;
-      margin-right:20px;
-      text-align:right;
-      width:100px; 
-    }      
-    div.racun_ispis div.total{  
-      float:right;
-      margin-top:30px;
-      padding-right:20px;
-      width:300px;   
-      color:#222327;                         
-    }  
-    div.racun_ispis div.total .left{
-      float:left;
-      font-weight:bold;
-      margin-right:20px;
-      text-align:right;
-      width:140px;
-    }   
-    div.racun_ispis div.total .right{
-      float:left;
-      font-weight:bold;
-      text-align:right;
-      width:140px;
-     }               
-     div.racun_ispis div.total p.ukupno {
-       font-size:14px;
-       font-weight:bold;
-       margin-bottom:10px;
-       margin-top:10px; 
-       color:#000000;
-     }                            
-     div.racun_ispis div.total p{
-       margin-bottom:6px;           
-     }    
-
-  /*          
-     div.racun_ispis div.stavke li.header{
-      background-color:#F4D072;
-      border-bottom-color:#E9C66E;
-      border-top-color:#E9C66E;            
-     }   
-     div.racun_ispis div.stavke li.stavka.alt {
-       background-color:#FEFAF1;
-     }
-     div.racun_ispis div.stavke li.stavka {
-       border-bottom-color:#FDF6E3;
-     }  
-
-     div.racun_ispis div.stavke li.header{ 
-       background-color:#CEEBA0;
-       border-bottom-color:#C3E09A;
-       border-top-color:#C3E09A;
-     }
-     div.racun_ispis div.stavke li.stavka.alt {
-       background-color:#F7FCEF;
-     }
-     div.racun_ispis div.stavke li.stavka {
-       border-bottom-color:#EFF8DF;
-     }
-  */
-    </style>
-  
-  
-  
 </head>  
 <body>    
   <div id="template_racun_edit" >
@@ -417,30 +156,22 @@
   </div> 
 </div>   
 </div>
-  
-      
+        
   <script type="text/javascript" charset="utf-8"> 
-    function createRacun(){
-      var racun = {
-        broj: 123,
-        pdv: 10, 
-        datum: "2008-08-16T13:28:11Z", 
-        stavke: 
-        [
-          {naziv: "stavka 1", kolicina:100, cijena:1.1}, 
-          {naziv: "stavka 2", kolicina:200, cijena:2.1}
-        ],
-        partner: { naziv: "Nektar", adresa: "Zugci 5a, Samoborski Novaki", porezniBroj: 12345, mjesto: "10431 Sveta Nedjelja" }
-      };                                            
-      app.models.Racun.apply(racun);  
-      return racun;
-    } 
-
-    racun = createRacun();
-    controllerEdit = new app.controllers.Racun(racun, $('template_racun_edit'));
-    controllerPreview = new app.controllers.Racun(racun, $('template_racun_preview'));
-  </script>
-         
+    var racun = {
+      broj: 123,
+      pdv: 10, 
+      datum: "2008-08-16T13:28:11Z", 
+      stavke: 
+      [
+        {naziv: "stavka 1", kolicina:100, cijena:1.1}, 
+        {naziv: "stavka 2", kolicina:200, cijena:2.1}
+      ],
+      partner: { naziv: "Nektar", adresa: "Zugci 5a, Samoborski Novaki", porezniBroj: 12345, mjesto: "10431 Sveta Nedjelja" }
+    };
+    var controllerEdit = new app.controllers.Racun(racun, $('template_racun_edit'));
+    var controllerPreview = new app.controllers.Racun(racun, $('template_racun_preview'));
+  </script>         
   
 </body>  
 </html>

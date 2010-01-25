@@ -5,28 +5,24 @@ app.models.Racun = function(){
   this.stavke = this.stavke || [];
   this.partner = this.partner || {};    
   this.datum = this.datum || new Date();
-  this.rokPlacanja = (this.rokPlacanja == null) ? 15 : this.rokPlacanja;
-	
-  //TODO ovo treba prebaciti u model base
-  this.datum = (inna.helpers.getType(this.datum) == "string") ? Date.fromJSON(this.datum) : this.datum || new Date();
-
+  this.rokPlacanja = (this.rokPlacanja == null) ? 15 : this.rokPlacanja;	
+  this.datum = Date.toDateOrDefault(this.datum);
   
   //TODO ovdje moze ici neka logika da iterira kroz sve pa da skuzi o kojem se tipu objekta radi i koji apply treba pozvati
   this.stavke.each(function(stavka){ app.models.Stavka.call(stavka, this)}.bind(this)); 
   app.models.Partner.call(this.partner, this);
 																																															
-  this.createStavka = function(stavka){	 
+  this.addStavka = function(stavka){	 
 		stavka = stavka || {}
     app.models.Stavka.call(stavka, this);         
     this.stavke.push(stavka);  
-		inna.notificationCenter.pushNotification(this, 'stavkaAdded', stavka);
+		this.pushNotification('stavkaAdded', stavka);
     return stavka;
   }      
   
   this.removeStavka = function(stavka){     
     this.stavke = this.stavke.without(stavka);                            
-		inna.notificationCenter.pushNotification(this, 'stavkaRemoved', stavka);
-    this.changed();
+		this.pushNotification('stavkaRemoved', stavka);    
   }
                              
   this.osnovica = function(){
@@ -41,9 +37,8 @@ app.models.Racun = function(){
     return this.osnovica() + this.pdvIznos() 
   }
 
-  this.valuta = function(){
-    //TODO napravi funkciju addDays na Date objektu
-    return new Date(this.datum.getTime() + this.rokPlacanja * 1000 * 60 * 60 * 24)
+  this.valuta = function(){		
+    return new Date(this.datum.getTime() + this.rokPlacanja * 1000 * 60 * 60 * 24);
   } 
           
 }
