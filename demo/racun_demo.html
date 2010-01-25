@@ -46,12 +46,20 @@
     </div>
         
     <div class="stavke">
-    <table border="0">             
+    <table border="0">    
+      <thead>
+        <tr>
+          <th>opis</th>
+          <th>količina</th>
+          <th>cijena</th>
+          <th>iznos</th>
+        </tr>
+      </thead>         
       <tbody collection="stavke">  
          <tr>
             <td><input type="text" property="naziv" class="stavka_naziv"></td>
-            <td><input type="text" property="kolicina"></td>
-            <td><input type="text" property="cijena"></td>
+            <td><input type="text" property="kolicina" class="kolicina"></td>
+            <td><input type="text" property="cijena" class="cijena"></td>
             <td align=right property="iznos" class="iznos"> </td> 
             <td><a href="#" action="removeStavka">brisi</a></td>
           </tr>
@@ -63,7 +71,7 @@
         </tr>
         <tr>
           <td colspan="2" align=right>pdv</td>            
-          <td><input type="text" property="pdv"></td>
+          <td><input type="text" property="pdv" class="pdv"></td>
           <td align=right property="pdvIznos" class="iznos"> </td>
         </tr>
         <tr>
@@ -73,13 +81,7 @@
       </tfoot>
     </table>            
     <a action="addStavka" href="#">nova stavka</a>
-    </div>         
-    
-    <div>
-      pdv opet  <span property="pdv"> </span>  da pokazem da jedan property mozde biti bindan na vise mjesta<br/>
-
-      <input action="save" type="button" value="save">
-    </div>
+    </div>            
   </div>
   
 <div id="template_racun_preview">   
@@ -129,13 +131,13 @@
         </li>            
         <span collection="stavke">
         <li class="stavka">
-          <span class="opis"     property="naziv"></span>
+          <span class="opis" property="naziv"></span>
           <span class="kolicina"> 
             <span property="kolicina"></span>
             <span property="jedinicaMjere"></span>
           </span>           
-          <span class="cijena"   property="cijena"></span>
-          <span class="iznos"    property="iznos"></span>
+          <span class="cijena" property="cijena"></span>
+          <span class="iznos"  property="iznos"></span>
         </li>        
         </span>
       </ul>    
