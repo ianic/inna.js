@@ -1,5 +1,5 @@
 app.models.Stavka = function(parent){
-  inna.models.Base.call(this, parent, "app.models.Stavka");   
+  inna.models.ModelBase.call(this, parent, "app.models.Stavka");   
   
   this.naziv = this.naziv || 'neka nova demo stavka';
   this.jedinicaMjere = this.jedinicaMjere || 'kom';

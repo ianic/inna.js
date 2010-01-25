@@ -1,3 +1,3 @@
 app.models.Partner = function(parent){
-  inna.models.Base.call(this, parent, "app.models.Partner");
+  inna.models.ModelBase.call(this, parent, "app.models.Partner");
 }

@@ -1,6 +1,6 @@
 app.controllers.Racun = function(model, element){     
 	
-  inna.controllers.Base.call(this);   
+  inna.controllers.ControllerBase.call(this);   
 	
   this.model = this.open(model); 
   app.models.Racun.apply(this.model);

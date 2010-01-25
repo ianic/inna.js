@@ -1,5 +1,5 @@
 app.models.Racun = function(){    
-  inna.models.Base.call(this, null, "app.models.Racun");
+  inna.models.ModelBase.call(this, null, "app.models.Racun");
    
   this.pdv = (this.pdv == null) ? 22 : this.pdv;
   this.stavke = this.stavke || [];
