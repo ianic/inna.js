@@ -77,10 +77,6 @@ describe("html binding", function(){
 			expect(divItems.childElements().length).toBe(2);
 		});
 
-		it("", function(){
-			
-		});
-
 	});
 
 	describe("object binding", function(){

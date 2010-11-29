@@ -25,7 +25,7 @@ Person.addMethods(inna.KeyValueCoding);
 
 
 
-describe("key value coding specs", function() {
+describe("key value coding", function() {
 
   describe("valueForKey", function() {
 
