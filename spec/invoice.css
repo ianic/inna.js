@@ -4,7 +4,7 @@
 		line-height:18px;
 		clear: both;
 }
-#invoice div{
+#invoice div.date{
 		margin-top: 10px;
 		padding: 8px; 
 		clear: both;		
@@ -14,7 +14,6 @@
 		width: 80px;		
 }
 #invoice label{
-		width: 100px;
 		float: left;
 		width: 100px;
 		text-align: right;
@@ -25,11 +24,34 @@
 #invoice div.date{       
 		width: 250px;  
 }
-#invoice div.items{
-		width: 300px;
-}
 
 
 .template{
 		display: none;
+}
+
+#invoice div.items{
+		clear: both;
+		width: 600px;
+}
+
+#invoice div.item{
+		clear: both;
+		height: 30px;
+}
+
+#invoice .items .item .name{
+		width: 200px;
+		float: left;
+}
+#invoice .items .item input{
+		float: left;
+		margin-left: 8px;
+		text-align: right;
+}
+#invoice .items .item .total{
+		width: 80px;
+		float: left;
+		margin-left: 8px;
+		text-align: right;
 }

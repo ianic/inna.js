@@ -19,7 +19,7 @@ var Invoice = Class.create({
 		this.dueDate = new Date();
 		this.comment = "...";
 		this.items = [];
-		this.items.push(new Item({name: "item 1", quantity : 12, price: 1.2}));
+		this.items.push(new Item({name: "item 1", quantity : 12, price: 6.5}));
 		this.items.push(new Item({name: "item 2", quantity : 34, price: 3.4}));
 	}
 
@@ -28,7 +28,7 @@ Invoice.addMethods(inna.KeyValueCoding);
 
 describe("html binding", function(){
 
-	describe("basic", function(){
+	describe("property binding", function(){
 
 		beforeEach(function(){
 			$("invoice").update("");
@@ -59,20 +59,35 @@ describe("html binding", function(){
 	});
 
 	describe("collection binding", function(){
-		it("", function(){
+
+		it("html should reflect adding/removing items in collection", function(){
 			$("invoice").update("");
 			inna.HamlTemplates.renderHaml({element: "invoice", template: "invoice"});	
 			var invoice = new Invoice();
 			var divItems = $$("#invoice div.items")[0];
 			var binder = new inna.HtmlCollectionBinder({element: divItems, model: invoice, template: "item", key: "items"});
+			var newItem = invoice.pushObjectInKey("items", new Item({name: "new item", quantity: 56, price: 1.5}));
+			//add new item
+			expect(invoice.items.length).toBe(3);
+			expect(invoice.objectInKeyAtIndex("items", 2)).toBe(newItem);
+			expect(divItems.childElements().length).toBe(3);
+			//remove item at index 1
+			invoice.removeObjectInKeyAtIndex("items", 1);
+			expect(invoice.items.length).toBe(2);
+			expect(divItems.childElements().length).toBe(2);
 		});
+
+		it("", function(){
+			
+		});
+
 	});
 
-	describe("inna.HtmlBinding", function(){
+	describe("object binding", function(){
 		
 		it("should init html binding for all elements in template", function(){
 			var invoice = new Invoice();
-			var binding = new inna.HtmlBinding({element: "invoice", template: "invoice", model: invoice});			
+			var binding = new inna.HtmlObjectBinder({element: "invoice", template: "invoice", model: invoice});			
 			expect(binding._binders.length).toBe(5);
 			expect(invoice.countObservers()).toBe(5);
 			binding.destroy();
