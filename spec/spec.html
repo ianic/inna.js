@@ -5,22 +5,58 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <!-- test library -->
 		<link rel="stylesheet" type="text/css" href="../vendor/jasmine-1.0.1/jasmine.css">
+    <link rel="stylesheet" type="text/css" href="invoice.css">
  		<script type="text/javascript" src="../vendor/jasmine-1.0.1/jasmine.js"></script>
     <script type="text/javascript" src="../vendor/jasmine-1.0.1/jasmine-html.js"></script>
 <!-- vendor libs -->
     <script type="text/javascript" src="../vendor/prototype.js"></script>
+    <script type="text/javascript" src="../vendor/haml/lib/haml.js"></script>
 <!-- inna lib -->
+    <script type="text/javascript" src="../lib/memoization.js"></script>
     <script type="text/javascript" src="../lib/key_value_coding.js"></script>
+    <script type="text/javascript" src="../lib/haml_templates.js"></script>
+    <script type="text/javascript" src="../lib/html_binding.js"></script>
+    <script type="text/javascript" src="../lib/html_binder.js"></script>
 <!-- tests -->
+    <script type="text/javascript" src="memoization.js"></script>
     <script type="text/javascript" src="key_value_coding.js"></script>
+    <script type="text/javascript" src="html_binding.js"></script>
  </head>
   <body>
-    <script type="text/javascript">
-      jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
-      jasmine.getEnv().execute();
+    <script type="text/javascript">      
+		  document.observe("dom:loaded", function() {      
+        jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
+        jasmine.getEnv().execute();
+      });
     </script>
 
-<textarea id="__OrderTemplate__">
-</texarea>
+
+    <div id="invoice"></div>
+
+<textarea id="__invoiceTemplate__" class="template">
+.date	
+  %label="date"
+  %input{inna-binding:"date"}
+  %label="term"
+  %input{inna-binding:"term"}	
+  %label="due date"
+  %span{inna-binding:"dueDate"}
+.items
+.comment
+  %label="comment"
+  %input{inna-binding:"comment"}
+  %span{inna-binding:"comment"}
+</textarea>
+
+<textarea id="__itemTemplate__" class="template">
+.item
+  .name{inna-binding:"name"}
+  %input{inna-binding:"quantity"}
+  %input{inna-binding:"price"}
+	.total{inna-binding:"total"}
+</textarea>		
+
+
+
   </body>
 </html>
