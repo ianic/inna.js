@@ -1,5 +1,4 @@
 var Person = Class.create({
-	//include: inna.KeyValueCoding,
 
 	initialize: function(firstName, lastName, age, mother){
 		this.firstName = firstName;
@@ -7,6 +6,7 @@ var Person = Class.create({
 		this.age = age;	
 		if (mother)
 			this.addChildObject("mother", mother);
+		this.defineDependentKey("fullName", ["firstName", "lastName"]);
 	},
 
 	addFriend: function(friend){
@@ -63,7 +63,29 @@ describe("key value coding", function() {
 			person.addObserver(inspector, 'lastName');
 			expect(person.countObservers()).toMatch(2);
 		});
+
 	});
+
+	describe("depenedent keys", function(){
+		
+		it("should call observerValueFor key for fullName on firstName and lastName changes", function(){
+			var person = new Person('Igor', 'Anic', 37);
+			var fullNameChangedCount = 0;
+			var inspector = {
+				observeValueForKey: function(object, key, options){
+					fullNameChangedCount += 1;
+				}
+			};		
+			person.addObserver(inspector, "fullName");
+			expect(fullNameChangedCount).toBe(0);
+			person.setValueForKey("firstName", "Pero");
+			expect(fullNameChangedCount).toBe(1);
+			person.setValueForKey("lastName", "Zdero");
+			expect(fullNameChangedCount).toBe(2);						
+		});
+
+	});
+
 
 	describe("notifying observers", function() {
 
@@ -85,6 +107,28 @@ describe("key value coding", function() {
 			person.setValueForKey('age', 38);
 			expect(age).toMatch(38);			
     });
+
+		it("inspector can observer all, or just one key", function(){
+			var inspector = {
+				calledCount: 0,
+				observeValueForKey: function(object, key, options){
+					this.calledCount += 1;
+				}
+			};
+			var ageInspector = {
+				calledCount: 0,
+				observeValueForKey: function(object, key, options){
+					this.calledCount += 1;
+				}
+			};
+			var person = new Person('Igor', 'Anic', 37);
+			person.addObserver(ageInspector, 'age');
+			person.addObserver(inspector);
+			person.setValueForKey("age", 38);
+			person.setValueForKey("lastName", "Anić");
+			expect(ageInspector.calledCount).toBe(1);
+			expect(inspector.calledCount).toBe(3); //age, lastName, and fullName (dependent key)
+		});
 
   });
 

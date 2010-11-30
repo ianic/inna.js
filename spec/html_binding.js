@@ -2,11 +2,13 @@ var Item = Class.create({
 
 	initialize: function(options){
 		Object.extend(this, options);
+		this.defineDependentKey("total", ["quantity", "price"]);
 	},
 
 	total: function(){
 		return this.quantity * this.price;
 	}
+
 });
 Item.addMethods(inna.KeyValueCoding);
 
@@ -76,6 +78,7 @@ describe("html binding", function(){
 			expect(invoice.items.length).toBe(2);
 			expect(divItems.childElements().length).toBe(2);
 		});
+
 
 	});
 
