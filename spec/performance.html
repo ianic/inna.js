@@ -1,0 +1,126 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+<!-- Provide a title.  This will be shown on the generated chart -->
+<title>Demo Test Suite</title>
+
+<script type="text/javascript" src="JSLitmus.js"></script>
+<script type="text/javascript" src="../vendor/prototype.js"></script>
+<script type="text/javascript">
+
+var pc = function(){
+		obj = { pub: 0 };
+		var priv = 1;
+		obj.inc = function(){
+		  priv += 1;
+		}
+		obj.inc2 = function(){
+		  this.pub += 1;
+		}
+
+		return obj;
+}
+
+var Pc = function(){
+		this.pub = 1
+}
+Pc.prototype.inc = function(){
+  this.pub += 1;
+}
+
+var Cc = Class.create({
+  initialize: function(){
+    this.pub = 1;
+  },
+  inc: function(){
+    this.pub += 1;
+  }
+})
+
+var pp = {
+  pub: 1,
+  inc: function() {
+   this.pub += 1;
+  }
+}
+
+
+JSLitmus.test('Object.create', function(count) {
+ while (count--) {
+   var obj = Object.create(pp);
+  }
+});
+
+JSLitmus.test('power constructor', function(count) {
+ while (count--) {
+   var obj = pc();
+  }
+});
+
+JSLitmus.test('prototypical constructor', function(count) {
+ while (count--) {
+   var obj = new Pc();
+  }
+});
+
+JSLitmus.test('prototype lib constructor', function(count) {
+ while (count--) {
+   var obj = new Cc();
+  }
+});
+
+
+var o4 = pc();
+JSLitmus.test('power constructor method', function(count) {
+  while (count--) {
+    o4.inc2(); 
+  }
+});
+
+var o3 = new Pc();
+JSLitmus.test('prototypical method', function(count) {
+  while (count--) {
+    o3.inc(); 
+  }
+console.log(obj.pub);
+});
+
+var o2 = new Cc();
+JSLitmus.test('prototype lib method', function(count) {
+  while (count--) {
+    o2.inc(); 
+  }
+});
+
+
+var o1 = Object.create(pp);
+o1.pub = 0;
+JSLitmus.test('Object.create method', function(count) {
+ while (count--) {
+    o1.inc();
+  }
+});
+
+pp.pub = 0;
+JSLitmus.test('plain object method call', function(count) {
+ while (count--) {
+    pp.inc(); 
+  }
+});
+
+
+
+
+
+</script>
+</head>
+
+<body>
+  <p>A simple demo showing how JSLitmus can be used to test the performance of some core JavaScript features. View source to see fully commented code.</p>
+  <div id="test_element" style="overflow:hidden; width: 1px; height:1px;"></div>
+</body>
+</html>
