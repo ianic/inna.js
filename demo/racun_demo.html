@@ -5,7 +5,8 @@
   <meta http-equiv="Content-type" content="text/html; charset=utf-8">
   <title>Racun Demo</title>                                                          
   
-  <script src="../vendor/prototype.js"                    type="text/javascript"></script>        
+  <script src="../vendor/prototype.js"                    type="text/javascript"></script>
+  <script src="../vendor/haml/lib/haml.js"                type="text/javascript"></script>        
                                                           
   <script src="../lib/extensions/string.js"               type="text/javascript"></script> 
   <script src="../lib/extensions/number.js"               type="text/javascript"></script> 
@@ -13,13 +14,24 @@
                                                           
   <script src="../lib/inna.js"                            type="text/javascript"></script>                                                                                                                                             
   <script src="../lib/helpers/get_type.js"                type="text/javascript"></script>    
-  <script src="../lib/models/model_base.js"               type="text/javascript"></script>  
-  <script src="../lib/controllers/controller_base.js"     type="text/javascript"></script>  
+
+  <script src="../key_value_coding.js"                    type="text/javascript"></script>
+  <script src="../key_value_observing.js"                 type="text/javascript"></script>
+  <script src="../key_value_collection_observing.js"      type="text/javascript"></script>
+  <script src="../model.js"                               type="text/javascript"></script>
+
+  <script src="../object_binder.js"                       type="text/javascript"></script>
+  <script src="../collection_binder.js"                   type="text/javascript"></script>
+
   <script src="../lib/controllers/binders/binder_base.js" type="text/javascript"></script> 
   <script src="../lib/controllers/binders/string.js"      type="text/javascript"></script> 
   <script src="../lib/controllers/binders/integer.js"     type="text/javascript"></script> 
   <script src="../lib/controllers/binders/date.js"        type="text/javascript"></script> 
-  <script src="../lib/controllers/binders/currency.js"    type="text/javascript"></script>     
+  <script src="../lib/controllers/binders/currency.js"    type="text/javascript"></script>
+  <script src="../lib/controllers/binders/add_remove_class.js"    type="text/javascript"></script>
+  <script src="../lib/controllers/binders/select.js"      type="text/javascript"></script>
+  <script src="../lib/controllers/binders/template.js"    type="text/javascript"></script>
+  <script src="../lib/controllers/binders/visible.js"     type="text/javascript"></script>     
                                                                                          
   <script src="../app/app.js"                             type="text/javascript"></script>   
   <script src="../app/models/racun.js"                    type="text/javascript"></script> 
@@ -31,7 +43,31 @@
   <link rel="stylesheet" href="preview.css" type="text/css" media="screen" title="no title" charset="utf-8">
 
 </head>  
-<body>    
+<body>
+
+<textarea id="racun_stavka_template">
+%tr
+  %td
+    %input{property:"naziv", class="stavka_naziv"}
+  %td
+    %input{property:"kolicina", class="stavka_kolicina"}
+  %td
+    %input{property:"cijena", class="stavka_cijena"}
+  %td{align:"right", property:"iznos", class="iznos"}
+  %td
+    %a{href:"#", action:"remove"}="briši"
+</textarea>
+<textarea id="racun_stavka_preview_template">
+%li{class:"stavka"}
+  %span.opis{property:"naziv"}
+  %span.kolicina
+    %span{property:"kolicina"}
+    %span{property:"jedinicaMjere"}
+  %span.cijena{property:"cijena"}
+  %span.iznos{property:"iznos"}
+</textarea>
+
+
   <div id="template_racun_edit" >
     <div class="datum">          
       <label>datum</label>        <input type="text" property="datum"> 
@@ -55,15 +91,8 @@
           <th>iznos</th>
         </tr>
       </thead>         
-      <tbody collection="stavke">  
-         <tr>
-            <td><input type="text" property="naziv" class="stavka_naziv"></td>
-            <td><input type="text" property="kolicina" class="kolicina"></td>
-            <td><input type="text" property="cijena" class="cijena"></td>
-            <td align=right property="iznos" class="iznos"> </td> 
-            <td><a href="#" action="removeStavka">brisi</a></td>
-          </tr>
-      </tbody>
+      <tbody collection="stavke" template="racun_stavka_template">  
+     </tbody>
       <tfoot>
         <tr>
           <td colspan="3" align=right>osnovica</td>
@@ -129,17 +158,8 @@
           <span class="cijena">Cijena</span>
           <span class="iznos">Iznos</span>
         </li>            
-        <span collection="stavke">
-        <li class="stavka">
-          <span class="opis" property="naziv"></span>
-          <span class="kolicina"> 
-            <span property="kolicina"></span>
-            <span property="jedinicaMjere"></span>
-          </span>           
-          <span class="cijena" property="cijena"></span>
-          <span class="iznos"  property="iznos"></span>
-        </li>        
-        </span>
+        <span collection="stavke" template="racun_stavka_preview_template">
+       </span>
       </ul>    
     
       <div class="total">
@@ -171,8 +191,9 @@
       ],
       partner: { naziv: "Nektar", adresa: "Zugci 5a, Samoborski Novaki", porezniBroj: 12345, mjesto: "10431 Sveta Nedjelja" }
     };
-    var controllerEdit = new app.controllers.Racun(racun, $('template_racun_edit'));
-    var controllerPreview = new app.controllers.Racun(racun, $('template_racun_preview'));
+    app.models.Racun.apply(racun);
+    var controllerEdit = new app.RacunController(racun, $('template_racun_edit'));
+    var controllerPreview = new app.RacunController(racun, $('template_racun_preview'));
   </script>         
   
 </body>  

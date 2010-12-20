@@ -47,3 +47,7 @@
 #template_racun_edit input.kolicina, #template_racun_edit input.cijena, #template_racun_edit input.pdv{
 	text-align: right;
 }
+
+body > textarea{ 
+		display: none; 
+}
