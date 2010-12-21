@@ -33,13 +33,11 @@
   <script src="../lib/controllers/binders/template.js"    type="text/javascript"></script>
   <script src="../lib/controllers/binders/visible.js"     type="text/javascript"></script>     
                                                                                          
-  <script src="../app/app.js"                             type="text/javascript"></script>   
-  <script src="../app/models/racun.js"                    type="text/javascript"></script> 
-  <script src="../app/models/stavka.js"                   type="text/javascript"></script> 
-  <script src="../app/models/partner.js"                  type="text/javascript"></script>    
-  <script src="../app/controllers/racun.js"               type="text/javascript"></script>    
+  <script src="./app/racun.js"                             type="text/javascript"></script> 
+  <script src="./app/stavka.js"                            type="text/javascript"></script> 
+  <script src="./app/racun_controller.js"                  type="text/javascript"></script>    
 
-  <link rel="stylesheet" href="demo.css" type="text/css" media="screen" title="no title" charset="utf-8">
+  <link rel="stylesheet" href="demo.css"    type="text/css" media="screen" title="no title" charset="utf-8">
   <link rel="stylesheet" href="preview.css" type="text/css" media="screen" title="no title" charset="utf-8">
 
 </head>  
@@ -191,9 +189,9 @@
       ],
       partner: { naziv: "Nektar", adresa: "Zugci 5a, Samoborski Novaki", porezniBroj: 12345, mjesto: "10431 Sveta Nedjelja" }
     };
-    app.models.Racun.apply(racun);
-    var controllerEdit = new app.RacunController(racun, $('template_racun_edit'));
-    var controllerPreview = new app.RacunController(racun, $('template_racun_preview'));
+    racun = app.racun(racun);
+    var controllerEdit    = app.racunController(racun, $('template_racun_edit'));
+    var controllerPreview = app.racunController(racun, $('template_racun_preview'));
   </script>         
   
 </body>  
