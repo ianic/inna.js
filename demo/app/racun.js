@@ -54,6 +54,7 @@ app.racun = function(that){
 
 	that.defineDependentKey("pdvIznos", ["osnovica", "pdv"]);
 	that.defineDependentKey("iznos", ["osnovica", "pdv"]);
+	that.defineDependentKey("valuta", ["datum", "rokPlacanja"]);
           
 	return that;
 };

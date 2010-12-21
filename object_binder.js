@@ -11,7 +11,7 @@ inna.objectBinder = function(options){
     	obj               = {};
 	
 	if(template){
-		inna.controllers.binders.renderHamlTemplate(element, template, null, model, options.insert);
+		inna.renderHamlTemplate(element, template, null, model, options.insert);
     view = inna.findLastChildNode(element);    
 	}
   
@@ -35,12 +35,12 @@ inna.objectBinder = function(options){
 
   var bindProperty = function(element){
     binders.push(
-			inna.controllers.binders.create(
-				element, 
-				model, 
-				element.getAttribute("property"), 
-				element.getAttribute("binderType")
-			)
+			inna.createBinder({
+				element					: element, 
+				object					: model, 
+				property				: element.getAttribute("property"), 
+				type						: element.getAttribute("binderType")
+			})
 		); 
 	};
 
