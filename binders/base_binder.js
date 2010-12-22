@@ -2,9 +2,9 @@ var inna = inna || {};
 
 inna.createBinder = function(options){     
 	var element		= $(options.element), 
-	    object		= options.object,  
-      property	= options.property,
-	    type			= options.type;
+	object		= options.object,  
+  property	= options.property,
+	type			= options.type;
 	
   if (property.include(".")){   
     var parts = property.split('.');
@@ -18,89 +18,90 @@ inna.createBinder = function(options){
       type = inna.helpers.getType(object[property]);
   }   
   switch(type.toLowerCase()){
-    case 'date': 
-      return inna.dateBinder(element, object, property);
-    case 'number':
-      return inna.currencyBinder(element, object, property);
-    case 'integer':
-      return inna.integerBinder(element, object, property);
-    case 'select':  
-      return new inna.controllers.binders.Select(element, object, property);
-    case 'visible':  
-      return new inna.controllers.binders.Visible(element, object, property);      
-    case 'template':  
-      return new inna.controllers.binders.Template(element, object, property);            
-    case 'addremoveclass':  
-      return new inna.controllers.binders.AddRemoveClass(element, object, property);            
-    default:                                                                
-      return inna.stringBinder(element, object, property);
+  case 'date': 
+    return new inna.DateBinder(element, object, property);
+  case 'number':
+    return new inna.CurrencyBinder(element, object, property);
+  case 'integer':
+    return new inna.IntegerBinder(element, object, property);
+  // case 'select':  
+  //   return new inna.controllers.binders.Select(element, object, property);
+  // case 'visible':  
+  //   return new inna.controllers.binders.Visible(element, object, property);      
+  // case 'template':  
+  //   return new inna.controllers.binders.Template(element, object, property);            
+  // case 'addremoveclass':  
+  //   return new inna.controllers.binders.AddRemoveClass(element, object, property);            
+  default:                                                                
+    return new inna.StringBinder(element, object, property);
   }
   
 };
 
-inna.binderBase = function(that, element, model, property){
+inna.BinderBase = new Class.create({
 
-  that.element  = element;                               
-	that.model    = model;
-  that.property = property || element.name || element.id;  
+	initialize: function(element, model, property){
+		this.key = property;
+		this.element  = element;                               
+		this.model    = model;
+		this.property = property || element.name || element.id;  
+		this.changingModel = false;
 
-	var isInputElement = function(){
-		return element.nodeName == "INPUT" ||
-			element.nodeName == "SELECT" ||
-			element.nodeName == "TEXTAREA";
-	};
-          
-  var changingModel = false;
-
-  that.onElementChanged = function(){   
-		changingModel = true;
-    if (that.property)
-      model.setValueForKey(property, that.elementValue());
-		changingModel = false;
-  }; 
-  
-  if (that.onModelChanged === undefined) {
-    that.onModelChanged = function(){
-			if (changingModel){
-				return;
-			}
-
-      if (property){
-        if (element.value == null || element.nodeName == "LI"){
-          element.update(that.propertyValue());
-        } else {
-          element.value = that.propertyValue();
-        }                  
-      }
-    };                          
-  }
-    
-	if (isInputElement()){
-		Event.observe(element, 'change', that.onElementChanged.bindAsEventListener(that)); 
-		Event.observe(element, 'keyup',  that.onElementChanged.bindAsEventListener(that)); 
-	}
-
-	if (model.addObserver){
-		model.addObserver(that, property, {handler: that.onModelChanged.bind(that)});
-	}
-    
-  that.propertyValue = function(){
-    return that.modelValue();
-  };                                           
-  
-  that.elementValue = function(){   
-    return (element.value == null) ? element.innerHTML : element.value;
-  }; 
-
-  that.modelValue = function(){
-		return (model.valueForKey) ? model.valueForKey(property) : model[property];
-  };
-  
-  that.destroy = function(){
-		if (isInputElement()){
-			Event.stopObserving(element);
+		if (this.isInputElement()){
+			Event.observe(element, 'change', this.onElementChanged.bindAsEventListener(this)); 
+			Event.observe(element, 'keyup',  this.onElementChanged.bindAsEventListener(this)); 
 		}
-    model.removeObserver(that);
-  };
 
-};                 
+		if (this.model.addObserver){
+			this.model.addObserver(this, this.key, { handler: this.onModelChanged.bind(this) });
+		}				
+	},
+
+	isInputElement : function(){
+		return this.element.nodeName == "INPUT" ||
+			this.element.nodeName == "SELECT" ||
+			this.element.nodeName == "TEXTAREA";
+	},
+  
+  onElementChanged: function(){   
+		this.changingModel = true;
+    if (this.key){
+      this.model.setValueForKey(this.key, this.elementValue());
+		}
+		this.changingModel = false;
+  },
+  
+  onModelChanged: function(){
+		if (this.changingModel){
+			return;
+		}
+
+    if (this.key){
+      if (this.element.value == null || this.element.nodeName == "LI"){
+        this.element.update(this.propertyValue());
+      } else {
+        this.element.value = this.propertyValue();
+      }                  
+    }
+  },                          
+  
+	propertyValue: function(){
+    return this.modelValue();
+  },
+  
+  elementValue: function(){   
+    return (this.element.value === null) ? this.element.innerHTML : this.element.value;
+  },
+
+  modelValue: function(){
+		return (this.model.valueForKey) ? this.model.valueForKey(this.key) : this.model[this.key];
+  },
+  
+  destroy: function(){
+		if (this.isInputElement()){
+			Event.stopObserving(this.element);
+		}
+    this.model.removeObserver(this);
+  }
+
+});                 

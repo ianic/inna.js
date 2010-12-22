@@ -1,24 +1,38 @@
 var app = app || {};
 
-app.stavka = function(that, parent){
-	that = that || {};
+app.Stavka = Class.create({
+
+	initialize: function(obj, racun){
     
-  that.naziv						= that.naziv || 'neka nova demo stavka';
-  that.jedinicaMjere		= that.jedinicaMjere || 'kom';
-  that.kolicina					= that.kolicina || 12.15;
-  that.cijena						= that.cijena || 1.23;
+		this._racun           = racun;
+		this.naziv						= obj.naziv || 'neka nova demo stavka';
+		this.jedinicaMjere		= obj.jedinicaMjere || 'kom';
+		this.kolicina					= obj.kolicina || 12.15;
+		this.cijena						= obj.cijena || 1.23;
 
-	inna.model(that);   
-	  
-  that.iznos = function(){ 
-    return that.kolicina * that.cijena; 
-  };
+		this.defineDependentKey("iznos", ["kolicina", "cijena"]);
+	},
 	
-	that.remove = function(){
-		parent.removeStavka(that);
-	};
+  iznos: function(){ 
+    return this.kolicina * this.cijena; 
+  },
+	
+	remove : function(){
+		this._racun.removeStavka(this);
+	}
 
-	that.defineDependentKey("iznos", ["kolicina", "cijena"]);
+});      
 
-	return that;
-};      
+app.Stavka.addMethods(inna.KeyValueCoding);
+
+
+app.Model = Class.create({
+  
+  initialize: function(obj){
+		if (obj){
+			Object.extend(this, obj);
+		}
+	}
+		
+});
+app.Model.addMethods(inna.KeyValueCoding);

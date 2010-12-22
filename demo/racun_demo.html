@@ -15,10 +15,12 @@
   <script src="../inna.js"		     																			></script>                                                                                                                                             
   <!-- <script src="../lib/helpers/get_type.js"															></script>     -->
 
-  <script src="../key_value_coding.js"																	></script>
-  <script src="../key_value_observing.js"																></script>
-  <script src="../key_value_collection_observing.js"										></script>
-  <script src="../model.js"																							></script>
+  <!-- <script src="../key_value_coding.js"																	></script> -->
+  <!-- <script src="../key_value_observing.js"																></script> -->
+  <!-- <script src="../key_value_collection_observing.js"										></script> -->
+  <!-- <script src="../model.js"																							></script> -->
+  
+  <script src="../lib/key_value_coding.js"															></script>
 
   <script src="../object_binder.js"																			></script>
   <script src="../collection_binder.js"																	></script>
@@ -189,7 +191,7 @@
       ],
       partner: { naziv: "Nektar", adresa: "Zugci 5a, Samoborski Novaki", porezniBroj: 12345, mjesto: "10431 Sveta Nedjelja" }
     };
-    racun = app.racun(racun);
+    racun = new app.Racun(racun);
     var controllerEdit    = app.racunController(racun, $('template_racun_edit'));
     var controllerPreview = app.racunController(racun, $('template_racun_preview'));
   </script>         

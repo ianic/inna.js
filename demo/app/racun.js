@@ -1,60 +1,53 @@
 var app = app || {};
 
-app.racun = function(that){    
-	that = that || {};
-     
-  that.pdv							= (that.pdv == null) ? 22 : that.pdv;
-  that.stavke						= that.stavke || [];
-  that.partner					= that.partner || {};    
-  that.datum						= that.datum || new Date();
-  that.rokPlacanja			= (that.rokPlacanja == null) ? 15 : that.rokPlacanja;	
-  that.datum						= Date.toDateOrDefault(that.datum);
+app.Racun = Class.create({
+	
+	initialize: function(obj){    
 
-  //TODO ovdje moze ici neka logika da iterira kroz sve pa da skuzi o kojem se tipu objekta radi i koji apply treba pozvati
+    this.broj             = obj.broj || 0;    
+		this.pdv							= obj.pdv || 22;    
+		this.datum						= Date.toDateOrDefault(obj.datum || new Date());
+		this.rokPlacanja			= obj.rokPlacanja || 15;
 
-	var i = that.stavke.length;
-	while(i--){
-		app.stavka(that.stavke[i], that);
-	}
+		this.partner					= new app.Model(obj.partner || {});
+		this.stavke           = [];
 
-	inna.model(that);
-  inna.model(that.partner);	
+		obj.stavke.each(function(stavka) { this.addStavka(stavka, this); }.bind(this));
 
-	that.onValueForKeyChanged = function(key, options){
+		this.defineDependentKey("pdvIznos", ["osnovica", "pdv"]);
+		this.defineDependentKey("iznos", ["osnovica", "pdv"]);
+		this.defineDependentKey("valuta", ["datum", "rokPlacanja"]);
+	},
+
+	onValueForKeyChanged: function(key, options){
 		if (key === "stavke" || key === "stavke.iznos"){
-			that.didChangeValue("osnovica");
+			this.didChangeValue("osnovica");
 		}
-	};
-																																															
-  that.addStavka = function(){	 
-		var stavka = app.stavka({}, that);;
-		that.pushObjectInKey("stavke", stavka);
-    return stavka;
-  };
+	},
+	
+  addStavka: function(obj){	 		
+		return this.pushObjectInKey("stavke", new app.Stavka(obj || {}, this));
+  },
   
-  that.removeStavka = function(stavka){     
-		that.removeObjectInKey("stavke", stavka);
-  };
-                             
-  that.osnovica = function(){
-    return that.stavke.inject(0, function(suma, stavka){ return suma + stavka.iznos(); });
-  };                                                                   
+  removeStavka: function(stavka){     
+		this.removeObjectInKey("stavke", stavka);
+  },
   
-  that.pdvIznos = function() { 
-    return that.osnovica() * that.pdv / 100; 
-  };
+  osnovica: function(){
+    return this.stavke.inject(0, function(suma, stavka){ return suma + stavka.iznos(); });
+  },
   
-  that.iznos = function(){ 
-    return that.osnovica() + that.pdvIznos();
-  };
+  pdvIznos: function() { 
+    return this.osnovica() * this.pdv / 100; 
+  },
+  
+  iznos: function(){ 
+    return this.osnovica() + this.pdvIznos();
+  },
 
-  that.valuta = function(){		
-    return new Date(that.datum.getTime() + that.rokPlacanja * 1000 * 60 * 60 * 24);
-  }; 
-
-	that.defineDependentKey("pdvIznos", ["osnovica", "pdv"]);
-	that.defineDependentKey("iznos", ["osnovica", "pdv"]);
-	that.defineDependentKey("valuta", ["datum", "rokPlacanja"]);
-          
-	return that;
-};
+  valuta: function(){		
+    return new Date(this.datum.getTime() + this.rokPlacanja * 1000 * 60 * 60 * 24);
+  }
+  
+});
+app.Racun.addMethods(inna.KeyValueCoding);

@@ -1,18 +1,20 @@
 var inna = inna || {};
 
-inna.currencyBinder = function(element, object, property){
-	var that = {};
-  inna.binderBase(that, element, object, property);
+inna.CurrencyBinder = Class.create(inna.BinderBase, {
+
+	initialize: function($super, element, object, property){
+		
+		$super(element, object, property);
+		this.onModelChanged();
+	},
+
+  elementValue: function(){
+    var value = parseFloat(this.element.value.toNumber());	
+    return isNaN(value) ? this.modelValue() : value;		
+  },
 	
-  that.elementValue = function(){
-    var value = parseFloat(element.value.toNumber());
-    return isNaN(value) ? that.modelValue() : value;		
-  };
+  propertyValue: function(){
+    return this.modelValue().toCurrency(2);
+  }
 	
-  that.propertyValue = function(){
-    return that.modelValue().toCurrency(2);
-  };
-	
-  that.onModelChanged();
-	return that;
-}; 
+}); 

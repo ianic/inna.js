@@ -1,8 +1,10 @@
 var inna = inna || {};
 
-inna.stringBinder = function(element, object, property){	
-	var that = {};
-  inna.binderBase(that, element, object, property);
-  that.onModelChanged();
-	return that;
-};
+inna.StringBinder = Class.create(inna.BinderBase, {
+	
+	initialize: function($super, element, object, property){	
+		$super(element, object, property);
+		this.onModelChanged();		
+	}
+
+});

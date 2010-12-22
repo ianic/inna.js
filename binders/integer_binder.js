@@ -1,23 +1,24 @@
 var inna = inna || {};
 
-inna.integerBinder = function(element, object, property){
-	var that = {};
-  inna.binderBase(that, element, object, property);
+inna.IntegerBinder = Class.create(inna.BinderBase, {
+
+	initialize: function($super, element, object, property){
+		$super(element, object, property);
+		this.onModelChanged();
+	},
 	
-  that.elementValue = function(){                  
-    var value = that.element.value.gsub(".", "");
+  elementValue: function(){                  
+    var value = this.element.value.gsub(".", "");
     value = parseInt(value.toNumber());
-    return isNaN(value) ? that.modelValue() : value;
-  };
+    return isNaN(value) ? this.modelValue() : value;
+  },
 	
-  that.propertyValue = function(){
-    var value = that.modelValue();
+  propertyValue: function(){
+    var value = this.modelValue();
     if (value || value == 0)
       return value.toCurrency(0);  
     else 
       return "";
-  };
-	
-  that.onModelChanged();
-	return that;
-};
+  }	  
+
+});
