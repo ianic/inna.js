@@ -25,6 +25,8 @@
   <script src="../lib/binders/integer_binder.js"												></script> 
   <script src="../lib/binders/date_binder.js"														></script> 
   <script src="../lib/binders/currency_binder.js"												></script>
+  <script src="../lib/binders/select_binder.js"  												></script>
+  <script src="../lib/binders/template_binder.js"  												></script>
   <!-- <script src="../lib/binders/add_remove_class.js"			></script> -->
   <!-- <script src="../lib/binders/select.js"								></script> -->
   <!-- <script src="../lib/binders/template.js"							></script> -->
@@ -44,7 +46,9 @@
     %input{property:"kolicina", class="stavka_kolicina"}
   %td
     %input{property:"cijena", class="stavka_cijena"}
-  %td{align:"right", property:"iznos", class="iznos"}
+  %td
+    %select{property:"pdvPostotak", binderType:"select"}    
+  %td{align:"right", property:"iznos", class="iznos"}       
   %td
     %a{href:"#", action:"remove"}="briši"
 </textarea>
@@ -56,6 +60,13 @@
     %span{property:"jedinicaMjere"}
   %span.cijena{property:"cijena"}
   %span.iznos{property:"iznos"}
+</textarea>                                                   
+
+<textarea id="racun_porezi_preview_template">
+:for porez in porezi
+  %p.pdv
+    %span.key=porez.key + "% "
+    %span.value=porez.value.toCurrency()
 </textarea>
 
 
@@ -79,6 +90,7 @@
           <th>opis</th>
           <th>količina</th>
           <th>cijena</th>
+          <th>pdv</th>
           <th>iznos</th>
         </tr>
       </thead>         
@@ -86,16 +98,15 @@
      </tbody>
       <tfoot>
         <tr>
-          <td colspan="3" align=right>osnovica</td>
+          <td colspan="4" align=right>osnovica</td>
           <td align=right property="osnovica" class="iznos"></td>
         </tr>
         <tr>
-          <td colspan="2" align=right>pdv</td>            
-          <td><input type="text" property="pdv" class="pdv"></td>
-          <td align=right property="pdvIznos" class="iznos"> </td>
+          <td colspan="4" align=right>pdv</td>            
+          <td align=right property="pdv" class="iznos"> </td>
         </tr>
         <tr>
-          <td colspan="3" align=right>ukupno</td>
+          <td colspan="4" align=right>ukupno</td>
           <td align=right property="iznos" class="ukupno"> </td>
         </tr> 
       </tfoot>
@@ -156,12 +167,12 @@
       <div class="total">
         <div class="left">          
           <p>Osnovica</p>
-          <p>PDV <span property="pdv"></span>%</p>
+          <p>PDV</p>
           <p class="ukupno">Iznos</p>
         </div>
         <div class="right">          
           <p property="osnovica"></p>
-          <p property="pdvIznos"></p>
+          <p property="porezi" binderType="template" template="racun_porezi_preview_template"></p>
           <p class="ukupno" property="iznos"></p>
         </div>
       </div>
@@ -177,8 +188,10 @@
       datum: "2008-08-16T13:28:11Z", 
       stavke: 
       [
-        {naziv: "stavka 1", kolicina:100, cijena:1.1}, 
-        {naziv: "stavka 2", kolicina:200, cijena:2.1}
+        {naziv: "stavka 1", kolicina:100, cijena:1.1, pdvPostotak: 0}, 
+        {naziv: "stavka 2", kolicina:200, cijena:2.1, pdvPostotak: 5},
+        {naziv: "stavka 3", kolicina:300, cijena:1.3, pdvPostotak: 10},
+        {naziv: "stavka 4", kolicina:400, cijena:2.3}
       ],
       partner: { naziv: "Nektar", adresa: "Zugci 5a, Samoborski Novaki", porezniBroj: 12345, mjesto: "10431 Sveta Nedjelja" }
     };
