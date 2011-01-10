@@ -22,9 +22,9 @@ app.Racun = Class.create({
 
 	onValueForKeyChanged: function(key, options){
 		if (key === "stavke" || key === "stavke.iznos"){
+			this.izracun();
 			this.didChangeValue("osnovica");
-		}       
-		this.izracun();						
+		}       		
 	},               
 	
   izracun: function(){
@@ -46,7 +46,6 @@ app.Racun = Class.create({
         }                   
       }
     }.bind(this));
-    //this.osnovica = this.stavke.inject(0, function(suma, stavka){ return suma + stavka.osnovica(); });
   },
 	
   addStavka: function(obj){	 		
@@ -57,18 +56,6 @@ app.Racun = Class.create({
 		this.removeObjectInKey("stavke", stavka);
   },
   
-  // osnovica: function(){
-  //   return this.stavke.inject(0, function(suma, stavka){ return suma + stavka.iznos(); });
-  // },
-  // 
-  // pdvIznos: function() { 
-  //   return this.osnovica() * this.pdv / 100; 
-  // },
-  // 
-  // iznos: function(){ 
-  //   return this.osnovica() + this.pdvIznos();
-  // },
-
   valuta: function(){		
     return new Date(this.datum.getTime() + this.rokPlacanja * 1000 * 60 * 60 * 24);
   }

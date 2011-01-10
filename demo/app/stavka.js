@@ -1,4 +1,4 @@
-var app = app || {};
+var app = app || {};     
 
 app.Stavka = Class.create({
 

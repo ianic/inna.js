@@ -2,20 +2,20 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
   <title>Račun demo</title>
-  <link rel="stylesheet" href="demo.css"    type="text/css" media="screen" charset="utf-8">
-  <link rel="stylesheet" href="preview.css" type="text/css" media="screen" charset="utf-8">
+  <link rel="stylesheet" href="demo.css"    type="text/css" media="screen" charset="utf-8" />
+  <link rel="stylesheet" href="preview.css" type="text/css" media="screen" charset="utf-8" />
 
   
-  <script src="../vendor/prototype.js"																	></script>
+	<script src="../vendor/prototype.js"																	></script>
   <script src="../vendor/haml/lib/haml.js"															></script>        
                                                         
   <script src="../lib/extensions/string.js"															></script>
   <script src="../lib/extensions/number.js"															></script>
   <script src="../lib/extensions/date.js"																></script>
                                                         
-  <script src="../lib/inna.js"	   																			></script>                                                                                                                                             
+  <script src="../lib/inna.js"	   																			></script>
   <script src="../lib/key_value_coding.js"															></script>
   <script src="../lib/object_binder.js"																	></script>
   <script src="../lib/collection_binder.js"															></script>
@@ -26,12 +26,8 @@
   <script src="../lib/binders/date_binder.js"														></script> 
   <script src="../lib/binders/currency_binder.js"												></script>
   <script src="../lib/binders/select_binder.js"  												></script>
-  <script src="../lib/binders/template_binder.js"  												></script>
-  <!-- <script src="../lib/binders/add_remove_class.js"			></script> -->
-  <!-- <script src="../lib/binders/select.js"								></script> -->
-  <!-- <script src="../lib/binders/template.js"							></script> -->
-  <!-- <script src="../lib/binders/visible.js"							></script> -->
-                                                                                         
+  <script src="../lib/binders/template_binder.js" 											></script>
+                                                                                        
   <script src="./app/racun.js"																					></script> 
   <script src="./app/stavka.js"																					></script> 
   <script src="./app/racun_controller.js"																></script>    
@@ -41,25 +37,25 @@
 <textarea id="racun_stavka_template">
 %tr
   %td
-    %input{property:"naziv", class="stavka_naziv"}
+    %input.stavka_naziv{property:"naziv"}
   %td
-    %input{property:"kolicina", class="stavka_kolicina"}
+    %input.stavka_kolicina{property:"kolicina"}
   %td
-    %input{property:"cijena", class="stavka_cijena"}
+    %input.stavka_cijena{property:"cijena"}
   %td
     %select{property:"pdvPostotak", binderType:"select"}    
-  %td{align:"right", property:"iznos", class="iznos"}       
+  %td.iznos{align:"right", property:"iznos"}       
   %td
     %a{href:"#", action:"remove"}="briši"
 </textarea>
 <textarea id="racun_stavka_preview_template">
-%li{class:"stavka"}
+%li.stavka
   %span.opis{property:"naziv"}
   %span.kolicina
     %span{property:"kolicina"}
     %span{property:"jedinicaMjere"}
   %span.cijena{property:"cijena"}
-  %span.iznos{property:"iznos"}
+  %span.iznos{property:"osnovica"}
 </textarea>                                                   
 
 <textarea id="racun_porezi_preview_template">
@@ -72,15 +68,15 @@
 
   <div id="template_racun_edit" >
     <div class="datum">          
-      <label>datum</label>        <input type="text" property="datum"> 
-      <label>rok plaćanja</label> <input type="text" property="rokPlacanja" binderType="integer">
+      <label>datum</label>        <input type="text" property="datum" /> 
+      <label>rok plaćanja</label> <input type="text" property="rokPlacanja" binderType="integer" />
       <label>dospijeće</label>    <span property="valuta"> </span>
     </div> 
 
     <div class="partner">
-      <label>naziv</label><input type="text" property="partner.naziv"> <br/>
-      <label>adresa</label><input type="text" property="partner.adresa"> <br/>
-      <label>porezni broj</label><input type="text" property="partner.porezniBroj" binderType="string">
+      <label>naziv</label><input type="text" property="partner.naziv" /> <br/>
+      <label>adresa</label><input type="text" property="partner.adresa" /> <br/>
+      <label>porezni broj</label><input type="text" property="partner.porezniBroj" binderType="string" />
     </div>
         
     <div class="stavke">
@@ -183,8 +179,7 @@
         
   <script type="text/javascript" charset="utf-8"> 
     var racun = {
-      broj: 123,
-      pdv: 10, 
+      broj: '123-2008',
       datum: "2008-08-16T13:28:11Z", 
       stavke: 
       [
